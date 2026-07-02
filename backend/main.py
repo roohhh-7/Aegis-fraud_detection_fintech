@@ -7,7 +7,7 @@ import uuid
 import time
 from datetime import datetime, timedelta
 
-app = FastAPI(title="Sentra Engine API")
+app = FastAPI(title="Aegis Engine API")
 
 app.add_middleware(
     CORSMiddleware,

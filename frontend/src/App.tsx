@@ -50,7 +50,7 @@ const TopNav = ({ currentView, setCurrentView, isDark, setIsDark }: { currentVie
     <div className="h-14 border-b flex items-center justify-between px-4 bg-card z-10 relative shadow-sm">
       <div className="flex items-center space-x-2">
         <Shield className="h-6 w-6 text-primary fill-primary" />
-        <span className="font-bold text-lg tracking-tight cursor-pointer" onClick={() => setCurrentView('workflow')}>Sentra Engine</span>
+        <span className="font-bold text-lg tracking-tight cursor-pointer" onClick={() => setCurrentView('workflow')}>Aegis Engine</span>
         <Badge variant="secondary" className="ml-2 bg-muted text-muted-foreground border-transparent rounded-sm font-medium hover:bg-muted/80">Fraud Experimentation</Badge>
       </div>
       

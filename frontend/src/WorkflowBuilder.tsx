@@ -631,7 +631,7 @@ const AnalyticsConsole = () => {
       return (
         <div className="p-4 flex-1 overflow-y-auto bg-[#0a0a0a] text-green-500 font-mono text-xs">
           <div className="space-y-1 opacity-90 max-w-4xl mx-auto">
-            <p className="text-muted-foreground mb-4">Sentra Engine v2.4.1 Console</p>
+            <p className="text-muted-foreground mb-4">Aegis Engine v2.4.1 Console</p>
             <p>&gt; [SYSTEM] Initializing simulation engine...</p>
             <p>&gt; [SYSTEM] Loaded workflow configuration: {results.length} nodes active.</p>
             <p>&gt; [INFO] Ingesting {kpis.totalTransactions.toLocaleString()} test transactions from historical dataset.</p>
