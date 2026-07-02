@@ -1,12 +1,12 @@
-# Aegis
+# Sentra Engine
 
 **[👉 Check out the full 0-to-1 Product Case Study on Notion](https://app.notion.com/p/AEGIS-0-1-FinTech-Product-3908fab9854d80c6a3d7dfb6c9c97506)**
 
-Aegis is a visual, drag-and-drop tool for building and testing fraud prevention rules. 
+Sentra Engine is a visual, drag-and-drop tool for building and testing fraud prevention rules. 
 
 I built this because setting up fraud rules at most companies is a huge bottleneck. Risk teams know what rules they want to write, but they usually have to create a Jira ticket, wait for engineers to code it, and then hope it doesn't accidentally block thousands of good customers when deployed. 
 
-Aegis solves this by letting risk teams build rules visually and immediately test them against historical data to see the financial impact before anything goes live.
+Sentra Engine solves this by letting risk teams build rules visually and immediately test them against historical data to see the financial impact before anything goes live.
 
 ## What it does
 
