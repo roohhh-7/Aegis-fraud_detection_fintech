@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
@@ -134,7 +134,7 @@ class ShadowSimulationResponse(BaseModel):
 
 # Dataset Generation logic
 @app.post("/api/dataset/generate", response_model=Dataset)
-async def generate_dataset(scenario: str = "normal", count: int = 10000):
+async def generate_dataset(scenario: str = "normal", count: int = Query(10000, le=50000)):
     transactions = []
     
     countries = ["US", "CA", "GB", "IN", "BR", "DE", "FR", "AU"]
