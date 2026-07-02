@@ -8,12 +8,19 @@ import time
 from datetime import datetime, timedelta
 from starlette.requests import Request
 from starlette.responses import JSONResponse
+from collections import defaultdict
 
 app = FastAPI(title="Aegis Engine API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://aegis.vercel.app",
+        "https://aegis-engine.vercel.app",
+        "https://sentra-engine.vercel.app",
+        "https://aegis-fraud-detection-fintech.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -25,6 +32,27 @@ async def limit_upload_size(request: Request, call_next):
         content_length = request.headers.get("content-length")
         if content_length and int(content_length) > 15 * 1024 * 1024:  # 15MB limit
             return JSONResponse({"detail": "Payload too large. Maximum size is 15MB."}, status_code=413)
+    return await call_next(request)
+
+request_history = defaultdict(list)
+RATE_LIMIT_WINDOW = 60
+MAX_REQUESTS_PER_WINDOW = 100
+
+@app.middleware("http")
+async def rate_limiter(request: Request, call_next):
+    if request.url.path.startswith("/api/"):
+        client_ip = request.headers.get("x-forwarded-for", request.client.host if request.client else "unknown")
+        if "," in client_ip:
+            client_ip = client_ip.split(",")[0].strip()
+            
+        now = time.time()
+        request_history[client_ip] = [t for t in request_history[client_ip] if now - t < RATE_LIMIT_WINDOW]
+        
+        if len(request_history[client_ip]) >= MAX_REQUESTS_PER_WINDOW:
+            return JSONResponse({"detail": "Rate limit exceeded. Try again later."}, status_code=429)
+            
+        request_history[client_ip].append(now)
+        
     return await call_next(request)
 
 class Transaction(BaseModel):
