@@ -50,5 +50,12 @@ npm run dev
 Then just open `http://localhost:5173` in your browser.
 
 Interfaces:
-!image.png
-!image.png
+<img width="1332" height="753" alt="image" src="https://github.com/user-attachments/assets/c0b6be2a-dd1b-49f8-b3fd-72df82f43034" />
+<img width="1335" height="745" alt="image" src="https://github.com/user-attachments/assets/ca50ecdc-0bc9-4bef-8fe7-8343674a5611" />
+<img width="1332" height="708" alt="image" src="https://github.com/user-attachments/assets/803c7073-81ea-411b-acc6-9f9b35af0964" />
+<img width="1325" height="748" alt="image" src="https://github.com/user-attachments/assets/422532bc-0b67-4065-9fb7-9138f4e37c7e" />
+<img width="1326" height="543" alt="image" src="https://github.com/user-attachments/assets/4dcadbee-ae95-4b0d-8447-356e7300e93b" />
+
+
+
+
