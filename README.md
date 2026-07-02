@@ -1,5 +1,6 @@
 # Aegis Engine
 
+**[🌍 Live Demo: aegisengine.vercel.app](https://aegisengine.vercel.app/)**  
 **[👉 Check out the full 0-to-1 Product Case Study on Notion](https://app.notion.com/p/AEGIS-0-1-FinTech-Product-3908fab9854d80c6a3d7dfb6c9c97506)**
 
 Aegis Engine is a visual, drag-and-drop tool for building and testing fraud prevention rules. 

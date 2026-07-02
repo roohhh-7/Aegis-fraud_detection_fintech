@@ -18,6 +18,7 @@ app.add_middleware(
         "http://localhost:5173",
         "https://aegis.vercel.app",
         "https://aegis-engine.vercel.app",
+        "https://aegisengine.vercel.app",
         "https://sentra-engine.vercel.app",
         "https://aegis-fraud-detection-fintech.vercel.app"
     ],
