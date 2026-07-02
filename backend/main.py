@@ -6,6 +6,8 @@ import random
 import uuid
 import time
 from datetime import datetime, timedelta
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
 app = FastAPI(title="Aegis Engine API")
 
@@ -17,46 +19,54 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.middleware("http")
+async def limit_upload_size(request: Request, call_next):
+    if request.method in ["POST", "PUT", "PATCH"]:
+        content_length = request.headers.get("content-length")
+        if content_length and int(content_length) > 15 * 1024 * 1024:  # 15MB limit
+            return JSONResponse({"detail": "Payload too large. Maximum size is 15MB."}, status_code=413)
+    return await call_next(request)
+
 class Transaction(BaseModel):
-    id: str
-    timestamp: str
-    amount: float
-    currency: str
-    user_id: str
-    card_fingerprint: str
-    device_fingerprint: str
-    ip_address: str
-    country: str
-    merchant_category: str
-    ai_risk_score: float = 0.0
-    device_risk_score: float = 0.0
-    ip_reputation_score: float = 0.0
-    card_bin_country: str = "US"
-    merchant_risk_score: float = 0.0
-    is_fraud_label: bool = False # For evaluating false positives/negatives if known
+    id: str = Field(..., max_length=100, strip_whitespace=True)
+    timestamp: str = Field(..., max_length=50, strip_whitespace=True)
+    amount: float = Field(..., ge=0)
+    currency: str = Field(..., max_length=10, strip_whitespace=True)
+    user_id: str = Field(..., max_length=100, strip_whitespace=True)
+    card_fingerprint: str = Field(..., max_length=100, strip_whitespace=True)
+    device_fingerprint: str = Field(..., max_length=100, strip_whitespace=True)
+    ip_address: str = Field(..., max_length=50, strip_whitespace=True)
+    country: str = Field(..., max_length=10, strip_whitespace=True)
+    merchant_category: str = Field(..., max_length=100, strip_whitespace=True)
+    ai_risk_score: float = Field(0.0, ge=0.0, le=100.0)
+    device_risk_score: float = Field(0.0, ge=0.0, le=100.0)
+    ip_reputation_score: float = Field(0.0, ge=0.0, le=100.0)
+    card_bin_country: str = Field("US", max_length=10, strip_whitespace=True)
+    merchant_risk_score: float = Field(0.0, ge=0.0, le=100.0)
+    is_fraud_label: bool = False
 
 class Dataset(BaseModel):
-    transactions: List[Transaction]
+    transactions: List[Transaction] = Field(..., max_length=50000)
 
 class NodeData(BaseModel):
-    label: str
-    config: Dict[str, Any] = {}
+    label: str = Field(..., max_length=200, strip_whitespace=True)
+    config: Dict[str, Any] = Field(default_factory=dict)
 
 class Node(BaseModel):
-    id: str
-    type: str
+    id: str = Field(..., max_length=100, strip_whitespace=True)
+    type: str = Field(..., max_length=50, strip_whitespace=True)
     data: NodeData
 
 class Edge(BaseModel):
-    id: str
-    source: str
-    target: str
-    sourceHandle: Optional[str] = None
-    targetHandle: Optional[str] = None
+    id: str = Field(..., max_length=100, strip_whitespace=True)
+    source: str = Field(..., max_length=100, strip_whitespace=True)
+    target: str = Field(..., max_length=100, strip_whitespace=True)
+    sourceHandle: Optional[str] = Field(None, max_length=100, strip_whitespace=True)
+    targetHandle: Optional[str] = Field(None, max_length=100, strip_whitespace=True)
 
 class Workflow(BaseModel):
-    nodes: List[Node]
-    edges: List[Edge]
+    nodes: List[Node] = Field(..., max_length=1000)
+    edges: List[Edge] = Field(..., max_length=2000)
 
 class SimulationRequest(BaseModel):
     workflow: Workflow
