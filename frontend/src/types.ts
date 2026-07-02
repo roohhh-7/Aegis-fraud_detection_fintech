@@ -38,6 +38,8 @@ export interface TransactionResult {
   path: string[];
   node_outcomes: Record<string, string>;
   execution_time_ms: number;
+  amount: number;
+  risk_score: number;
 }
 
 export interface KPIs {
