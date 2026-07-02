@@ -48,3 +48,7 @@ npm install
 npm run dev
 ```
 Then just open `http://localhost:5173` in your browser.
+
+Interfaces:
+!image.png
+!image.png
