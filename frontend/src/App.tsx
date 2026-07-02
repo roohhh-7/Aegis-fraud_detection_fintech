@@ -23,7 +23,8 @@ const TopNav = ({ currentView, setCurrentView, isDark, setIsDark }: { currentVie
     
     setIsSimulating(true);
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/simulate', {
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      const response = await fetch(`${API_BASE_URL}/api/simulate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
